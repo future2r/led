@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.web.WebView?>
+
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="name.ulbricht.led.MainController">
+	<stylesheets>
+		<URL value="@global.css" />
+	</stylesheets>
+	<top>
+		<VBox BorderPane.alignment="CENTER">
+			<children>
+				<MenuBar>
+					<menus>
+						<Menu text="%main.file-menu.text">
+							<items>
+								<MenuItem onAction="#newFile" text="%main.new-file.menu-item.text">
+									<accelerator>
+										<KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+									</accelerator>
+									<graphic>
+										<ImageView>
+											<image>
+												<Image url="@icons/add-file/ffffff-add-file-16.png" />
+											</image>
+										</ImageView>
+									</graphic>
+								</MenuItem>
+								<MenuItem onAction="#openFile" text="%main.open-file.menu-item.text">
+									<accelerator>
+										<KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+									</accelerator>
+									<graphic>
+										<ImageView>
+											<image>
+												<Image url="@icons/folder/ffffff-folder-16.png" />
+											</image>
+										</ImageView>
+									</graphic>
+								</MenuItem>
+								<Menu fx:id="mruMenu" onShowing="#configureMRUMenu" text="%main.mru-menu.text">
+									<items>
+										<MenuItem fx:id="mruNoneMenuItem" disable="true" text="%main.mruNone.text" />
+									</items>
+								</Menu>
+								<MenuItem onAction="#closeFile" text="%main.close-file.menu-item.text">
+									<accelerator>
+										<KeyCodeCombination alt="UP" code="F4" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+									</accelerator>
+								</MenuItem>
+								<MenuItem onAction="#saveFile" text="%main.save-file.menu-item.text">
+									<accelerator>
+										<KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+									</accelerator>
+									<graphic>
+										<ImageView>
+											<image>
+												<Image url="@icons/save/ffffff-save-16.png" />
+											</image>
+										</ImageView>
+									</graphic>
+								</MenuItem>
+								<MenuItem onAction="#saveFileAs" text="%main.save-file-as.menu-item.text">
+									<graphic>
+										<ImageView>
+											<image>
+												<Image url="@icons/save-as/ffffff-save-as-16.png" />
+											</image>
+										</ImageView>
+									</graphic>
+								</MenuItem>
+								<SeparatorMenuItem />
+								<MenuItem onAction="#exit" text="%main.exit.menu-item.text">
+								</MenuItem>
+							</items>
+						</Menu>
+						<Menu text="%main.edit-menu.text">
+							<MenuItem onAction="#cut" text="%main.cut.menu-item.text">
+								<accelerator>
+									<KeyCodeCombination alt="UP" code="X" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+								</accelerator>
+								<graphic>
+									<ImageView>
+										<image>
+											<Image url="@icons/cut/ffffff-cut-16.png" />
+										</image>
+									</ImageView>
+								</graphic>
+							</MenuItem>
+							<MenuItem onAction="#copy" text="%main.copy.menu-item.text">
+								<accelerator>
+									<KeyCodeCombination alt="UP" code="C" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+								</accelerator>
+								<graphic>
+									<ImageView>
+										<image>
+											<Image url="@icons/copy/ffffff-copy-16.png" />
+										</image>
+									</ImageView>
+								</graphic>
+							</MenuItem>
+							<MenuItem onAction="#paste" text="%main.paste.menu-item.text">
+								<accelerator>
+									<KeyCodeCombination alt="UP" code="V" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+								</accelerator>
+								<graphic>
+									<ImageView>
+										<image>
+											<Image url="@icons/clipboard/ffffff-clipboard-16.png" />
+										</image>
+									</ImageView>
+								</graphic>
+							</MenuItem>
+							<MenuItem onAction="#delete" text="%main.delete.menu-item.text">
+								<accelerator>
+									<KeyCodeCombination alt="UP" code="DELETE" control="UP" meta="UP" shift="UP" shortcut="UP" />
+								</accelerator>
+								<graphic>
+									<ImageView>
+										<image>
+											<Image url="@icons/delete/ffffff-delete-16.png" />
+										</image>
+									</ImageView>
+								</graphic>
+							</MenuItem>
+						</Menu>
+						<Menu text="%main.program-menu.text">
+							<MenuItem onAction="#execute" text="%main.execute.menu-item.text">
+								<graphic>
+									<ImageView>
+										<image>
+											<Image url="@icons/play/ffffff-play-16.png" />
+										</image>
+									</ImageView>
+								</graphic>
+							</MenuItem>
+							<MenuItem onAction="#stop" text="%main.stop.menu-item.text">
+								<graphic>
+									<ImageView>
+										<image>
+											<Image url="@icons/stop/ffffff-stop-16.png" />
+										</image>
+									</ImageView>
+								</graphic>
+							</MenuItem>
+							<MenuItem onAction="#showDisplay" text="%main.show-display.menu-item.text">
+								<graphic>
+									<ImageView>
+										<image>
+											<Image url="@icons/led-diode/ffffff-led-diode-16.png" />
+										</image>
+									</ImageView>
+								</graphic>
+							</MenuItem>
+						</Menu>
+						<Menu fx:id="helpMenu" text="%main.help-menu.text">
+							<MenuItem onAction="#showAPIDocumentation" text="%main.api-doc.menu-item.text">
+								<accelerator>
+									<KeyCodeCombination alt="UP" code="F1" control="UP" meta="UP" shift="UP" shortcut="UP" />
+								</accelerator>
+								<graphic>
+									<ImageView>
+										<image>
+											<Image url="@icons/help/ffffff-help-16.png" />
+										</image>
+									</ImageView>
+								</graphic>
+							</MenuItem>
+							<SeparatorMenuItem />
+							<MenuItem onAction="#sendFeedback" text="%main.feedback.menu-item.text" />
+							<SeparatorMenuItem />
+							<MenuItem onAction="#about" text="%main.about.menu-item.text">
+								<graphic>
+									<ImageView>
+										<image>
+											<Image url="@icons/about/ffffff-about-16.png" />
+										</image>
+									</ImageView>
+								</graphic>
+							</MenuItem>
+						</Menu>
+					</menus>
+				</MenuBar>
+				<ToolBar focusTraversable="false">
+					<items>
+						<Button focusTraversable="false" onAction="#newFile">
+							<graphic>
+								<ImageView>
+									<image>
+										<Image url="@icons/add-file/ffffff-add-file-32.png" />
+									</image>
+								</ImageView>
+							</graphic>
+							<tooltip>
+								<Tooltip text="%main.new-file.tooltip.text" />
+							</tooltip>
+						</Button>
+						<Button focusTraversable="false" onAction="#openFile">
+							<graphic>
+								<ImageView>
+									<image>
+										<Image url="@icons/folder/ffffff-folder-32.png" />
+									</image>
+								</ImageView>
+							</graphic>
+							<tooltip>
+								<Tooltip text="%main.open-file.tooltip.text" />
+							</tooltip>
+						</Button>
+						<Button focusTraversable="false" onAction="#saveFile">
+							<graphic>
+								<ImageView>
+									<image>
+										<Image url="@icons/save/ffffff-save-32.png" />
+									</image>
+								</ImageView>
+							</graphic>
+							<tooltip>
+								<Tooltip text="%main.save-file.tooltip.text" />
+							</tooltip>
+						</Button>
+						<Separator orientation="VERTICAL" />
+						<Button focusTraversable="false" onAction="#cut">
+							<graphic>
+								<ImageView>
+									<image>
+										<Image url="@icons/cut/ffffff-cut-32.png" />
+									</image>
+								</ImageView>
+							</graphic>
+							<tooltip>
+								<Tooltip text="%main.cut.tooltip.text" />
+							</tooltip>
+						</Button>
+						<Button focusTraversable="false" onAction="#copy">
+							<graphic>
+								<ImageView>
+									<image>
+										<Image url="@icons/copy/ffffff-copy-32.png" />
+									</image>
+								</ImageView>
+							</graphic>
+							<tooltip>
+								<Tooltip text="%main.copy.tooltip.text" />
+							</tooltip>
+						</Button>
+						<Button focusTraversable="false" onAction="#paste">
+							<graphic>
+								<ImageView>
+									<image>
+										<Image url="@icons/clipboard/ffffff-clipboard-32.png" />
+									</image>
+								</ImageView>
+							</graphic>
+							<tooltip>
+								<Tooltip text="%main.paste.tooltip.text" />
+							</tooltip>
+						</Button>
+						<Separator orientation="VERTICAL" />
+						<Button focusTraversable="false" onAction="#execute">
+							<graphic>
+								<ImageView>
+									<image>
+										<Image url="@icons/play/ffffff-play-32.png" />
+									</image>
+								</ImageView>
+							</graphic>
+							<tooltip>
+								<Tooltip text="%main.execute.tooltip.text" />
+							</tooltip>
+						</Button>
+						<Button focusTraversable="false" onAction="#stop">
+							<graphic>
+								<ImageView>
+									<image>
+										<Image url="@icons/stop/ffffff-stop-32.png" />
+									</image>
+								</ImageView>
+							</graphic>
+							<tooltip>
+								<Tooltip text="%main.stop.tooltip.text" />
+							</tooltip>
+						</Button>
+					</items>
+				</ToolBar>
+			</children>
+		</VBox>
+	</top>
+	<center>
+		<SplitPane fx:id="splitPane" dividerPositions="0.8" orientation="VERTICAL" BorderPane.alignment="CENTER">
+			<items>
+				<TabPane fx:id="sourceTabPane" focusTraversable="false" tabClosingPolicy="ALL_TABS">
+					<tabs>
+						<Tab closable="false" text="%main.tab.welcome.text">
+							<content>
+								<WebView fx:id="welcomeWebView" />
+							</content>
+						</Tab>
+					</tabs>
+				</TabPane>
+				<BorderPane minHeight="0">
+					<center>
+						<TextArea fx:id="logTextArea" editable="false" promptText="%main.log.promptText" />
+					</center>
+					<right>
+						<VBox>
+							<children>
+								<Button mnemonicParsing="false" onAction="#clearLog">
+									<graphic>
+										<ImageView>
+											<image>
+												<Image url="@icons/delete/ffffff-delete-16.png" />
+											</image>
+										</ImageView>
+									</graphic>
+									<tooltip>
+										<Tooltip text="%main.clearLog.tooltip.text" />
+									</tooltip>
+								</Button>
+							</children>
+						</VBox>
+					</right>
+				</BorderPane>
+			</items>
+		</SplitPane>
+	</center>
+</BorderPane>

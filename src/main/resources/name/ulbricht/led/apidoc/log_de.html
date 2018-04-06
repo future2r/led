@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="api.css">
+<title>API Dokumentation</title>
+</head>
+<body>
+
+	<h1>Objekt 'log'</h1>
+	<p>
+		Das Objekt <b>log</b> stellt Funktionen für die Protokollierung
+		bereit.
+	</p>
+	<p>
+		<b>Funktionen</b>
+	</p>
+	<table>
+		<tr>
+			<td><a href="#log.info_text">info(text)</a></td>
+			<td>Schreibt einen Text als Information</td>
+		</tr>
+		<tr>
+			<td><a href="#log.warning_text">warning(text)</a></td>
+			<td>Schreibt einen Text als Warnung</td>
+		</tr>
+		<tr>
+			<td><a href="#log.error_text">error(text)</a></td>
+			<td>Schreibt einen Text als Fehler</td>
+		</tr>
+	</table>
+
+	<h2>Funktionen</h2>
+
+	<h3 id="log.info_text">info(text)</h3>
+	<p>Die Funktion schreibt einen Text als Information in das
+		Protokoll.</p>
+	<p class="code">
+		// Information schreiben<br> log.info("Hallo");
+	</p>
+
+	<h3 id="log.warning_text">warning(text)</h3>
+	<p>Die Funktion schreibt einen Text als Warnung in das Protokoll.</p>
+	<p class="code">
+		// Warnung schreiben<br> log.warning("Hallo");
+	</p>
+
+	<h3 id="log.error_text">error(text)</h3>
+	<p>Die Funktion schreibt einen Text als Fehler in das Protokoll.</p>
+	<p class="code">
+		// Fehler schreiben<br> log.error("Hallo");
+	</p>
+
+</body>
+</html>

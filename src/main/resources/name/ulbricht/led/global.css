@@ -1,0 +1,20 @@
+/* global settings */
+.root {
+	-fx-base: #404040; /* basic color */
+	-fx-font: 14 'Segeo UI'; /* global font */
+}
+
+/* change the scroll bars globally */
+.scroll-bar:horizontal, 
+.scroll-bar:vertical{
+	-fx-background-color: derive(-fx-base, 50%); /* lighter than the base color */
+}
+
+/* application types */
+.big-label {
+    -fx-font-size: 20;
+}
+
+.header-description {
+    -fx-font-size: 20;
+}

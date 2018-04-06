@@ -1,0 +1,24 @@
+body {
+	background-color : #ffffb0;
+	font-family: Arial;
+	margin: 0.5cm;
+}
+a {
+	text-decoration : none;
+}
+a:hover {
+	color: red;
+}
+table {
+	border: thin solid gray;
+}
+td {
+	border: thin solid gray;
+	padding: 0.1cm;
+}
+p.code {
+	background-color : silver;
+	font-family: Courier;
+	margin: 0.5cm;
+	padding: 0.3cm;
+}

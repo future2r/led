@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.web.WebView?>
+
+<BorderPane prefHeight="700.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="name.ulbricht.led.APIController">
+	<stylesheets>
+		<URL value="@global.css" />
+	</stylesheets>
+	<top>
+		<ToolBar focusTraversable="false" BorderPane.alignment="CENTER">
+			<items>
+				<Button focusTraversable="false" mnemonicParsing="false" onAction="#back">
+					<graphic>
+						<ImageView pickOnBounds="true" preserveRatio="true">
+							<image>
+								<Image url="@icons/left-round/ffffff-left-round-32.png" />
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
+				<Button focusTraversable="false" mnemonicParsing="false" onAction="#forward">
+					<graphic>
+						<ImageView pickOnBounds="true" preserveRatio="true">
+							<image>
+								<Image url="@icons/right-round/ffffff-right-round-32.png" />
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
+				<Button focusTraversable="false" mnemonicParsing="false" onAction="#showHomePage">
+					<graphic>
+						<ImageView pickOnBounds="true" preserveRatio="true">
+							<image>
+								<Image url="@icons/cottage/ffffff-cottage-32.png" />
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
+			</items>
+		</ToolBar>
+	</top>
+	<center>
+		<BorderPane BorderPane.alignment="CENTER">
+			<center>
+				<WebView fx:id="webView" BorderPane.alignment="CENTER" />
+			</center>
+
+		</BorderPane>
+	</center>
+</BorderPane>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="api.css">
+<title>API Documentation</title>
+</head>
+<body>
+
+	<h1>Object 'led'</h1>
+	<p>
+		The object <b>led</b> represents the LED display. It provides
+		properties and function to adjust the display and switch the lamps.
+	</p>
+	<p>
+		<b>Properties</b>
+	</p>
+	<table>
+		<tr>
+			<td><a href="#led.width">width</a></td>
+			<td>Width of the LED display</td>
+		</tr>
+		<tr>
+			<td><a href="#led.height">height</a></td>
+			<td>Height of the LED display</td>
+		</tr>
+		<tr>
+			<td><a href="#led.color">color</a></td>
+			<td>Color of the lamps</td>
+		</tr>
+		<tr>
+			<td><a href="#led.delay">delay</a></td>
+			<td>Pause for switching operation</td>
+		</tr>
+		<tr>
+			<td><a href="#led.strict">strict</a></td>
+			<td>Strict mode</td>
+		</tr>
+	</table>
+	<p>
+		<b>Functions</b>
+	</p>
+	<table>
+		<tr>
+			<td><a href="#led.reset">reset()</a></td>
+			<td>Resets the LED display to defaults</td>
+		</tr>
+		<tr>
+			<td><a href="#led.delay_millis">delay(millis)</a></td>
+			<td>Waits the specified number of milliseconds</td>
+		</tr>
+		<tr>
+			<td><a href="#led.on">on()</a></td>
+			<td>Turns on all lamps</td>
+		</tr>
+		<tr>
+			<td><a href="#led.on_x_y">on(x, y)</a></td>
+			<td>Turns on one lamp</td>
+		</tr>
+		<tr>
+			<td><a href="#led.isOn_x_y">isOn(x, y)</a><br> <i>deprecated</i></td>
+			<td>Checks if a lamp is turned on</td>
+		</tr>
+		<tr>
+			<td><a href="#led.get_x_y">get(x, y)</a></td>
+			<td>Checks if a lamp is turned on</td>
+		</tr>
+		<tr>
+			<td><a href="#led.set_x_y_status">set(x, y, status)</a></td>
+			<td>Turns on or off one lamp</td>
+		</tr>
+		<tr>
+			<td><a href="#led.getColor_x_y">getColor(x, y)</a></td>
+			<td>Checks which color a lamp has</td>
+		</tr>
+		<tr>
+			<td><a href="#led.off">off()</a></td>
+			<td>Turns off all lamps</td>
+		</tr>
+		<tr>
+			<td><a href="#led.off_x_y">off(x, y)</a></td>
+			<td>Turns off one lamp</td>
+		</tr>
+		<tr>
+			<td><a href="#led.invert">invert()</a></td>
+			<td>Inverts all lamps</td>
+		</tr>
+		<tr>
+			<td><a href="#led.invert_x_y">invert(x, y)</a></td>
+			<td>Inverts one lamp</td>
+		</tr>
+		<tr>
+			<td><a href="#led.writeOn_x_y_text">writeOn(x, y, text)</a><br>
+				<i>deprecated</i></td>
+			<td>Turns on lamps for a text</td>
+		</tr>
+		<tr>
+			<td><a href="#led.writeOff_x_y_text"> writeOff(x, y, text)</a><br>
+				<i>deprecated</i></td>
+			<td>Turns off lamps for a text</td>
+		</tr>
+		<tr>
+			<td><a href="#led.write_x_y_status_text"> write(x, y,
+					status, text)</a></td>
+			<td>Turn on or off the lamps for a text</td>
+		</tr>
+		<tr>
+			<td><a href="#led.move_x_y_status"> move(x, y, status)</a></td>
+			<td>Move the display content</td>
+		</tr>
+	</table>
+
+	<h2>Properties</h2>
+
+	<h3 id="led.width">width</h3>
+	<p>
+		The property <b>width</b> defines the number of lamps for the width of
+		the LED display. Changing this property immediately changes the width
+		of the LED display on the screen. The current value of this property
+		can be used to determine the current width of the LED display. Valid
+		value are between 1 and 200. The default value is 50.
+	</p>
+	<p class="code">
+		// Change the width<br> led.width = 100;<br> <br> //
+		Use the width<br> for (int i = 0; i &lt; led.width; i++) ...
+	</p>
+
+	<h3 id="led.height">height</h3>
+	<p>
+		The property <b>height</b> defines the number of lamps for the height
+		of the LED display. Changing this property immediately changes the
+		height of the LED display on the screen. The current value of this
+		property can be used to determine the current height of the LED
+		display. Valid value are between 1 and 100. The default value is 10.
+	</p>
+	<p class="code">
+		// Change the height<br> led.height = 100;<br> <br> //
+		Use the height<br> for (int i = 0; i &lt; led.height; i++) ...
+	</p>
+
+	<h3 id="led.color">color</h3>
+	<p>
+		The property <b>color</b> defines the color of the lamps. When this
+		property is set to a color all succeeding operations will use this
+		color. Die default color is <b>RED</b>.
+	</p>
+	<p>
+		See also:<br> <a href="api_en.html#colors">Colors</a>
+	</p>
+	<p class="code">
+		// Change the color<br> led.color = BLUE;
+	</p>
+
+	<h3 id="led.delay">delay</h3>
+	<p>The property defines the pause in milliseconds the program will
+		wait before each switching operation. By changing this property the
+		speed of the program can be controlled. Valid values are between 0 and
+		60,000. The default value is 20.</p>
+	<p class="code">
+		// Maximal speed<br> led.delay = 0;
+	</p>
+
+	<h3 id="led.strict">strict</h3>
+	<p>This property activates or deactivates the strict mode. If this
+		mode is activated the program terminates with an error message when a
+		lamp outside of the LED display is accessed. By default this mode is
+		activated. If this mode is activated, nothing will happen if a lamps
+		outside of the LED display is turned on or off. When requesting the
+		current state of a lamp outside of the LED display they will be
+		considered as off.</p>
+	<p class="code">
+		// deactivate strict mode<br> led.strict = false;<br> <br>
+		// activate strict mode<br> led.strict = true;
+	</p>
+
+	<h2>Functions</h2>
+
+	<h3 id="led.reset">reset()</h3>
+	<p>This function sets all properties to their default values. The
+		LED display gets its initial size and all lamps are off.</p>
+	<p class="code">
+		// Reset LED display<br> led.reset();
+	</p>
+
+	<h3 id="led.delay_millis">delay(millis)</h3>
+	<p>
+		This function waits for the specified number of milliseconds. The
+		waiting time is independent of the current value of the property <a
+			href="#led.delay">delay</a>. Valid values are between 0 and 60,000.
+	</p>
+	<p class="code">
+		// Wait 2 seconds<br> led.delay(2000);
+	</p>
+
+	<h3 id="led.on">on()</h3>
+	<p>
+		This function turns on all lamps on the LED display. This operation
+		uses the current value of the property <a href="#led.color">color</a>.
+	</p>
+	<p class="code">
+		// Turn on all lamps<br> led.on();
+	</p>
+
+	<h3 id="led.on_x_y">on(x, y)</h3>
+	<p>
+		This function turns on the lamp at column <b>x</b> and row <b>y</b>.
+		This operation uses the current value of the property <a
+			href="#led.color">color</a>. The first column and row have the value
+		<b>0</b>. The maximum value is <b><a href="#led.width">led.width</a>
+			- 1</b> and <b><a href="#led.height">led.height</a> - 1</b> respectively.
+	</p>
+	<p class="code">
+		// Turn on the lamp in the upper left corner<br> led.on(0, 0);<br>
+		<br> // Turn on the lamp in the lower right corner<br>
+		led.on(led.width - 1, led.height - 1);
+	</p>
+
+	<h3 id="led.isOn_x_y">isOn(x, y)</h3>
+	<p>
+		This function is deprecated. Please use <a href="#led.get_x_y">get(x,
+			y)</a> instead.
+	</p>
+	<p>
+		This function can check if a lamp is on or off. If the lamp is on this
+		function returns <b>true</b>, otherwise <b>false</b>. The first column
+		and row have the value <b>0</b>. The maximum value is <b><a
+			href="#led.width">led.width</a> - 1</b> and <b><a href="#led.height">led.height</a>
+			- 1</b> respectively.
+	</p>
+	<p class="code">
+		// If the lamp is on...<br> if (led.isOn(10, 5)) ...<br> <br>
+		// If the lamp is off...<br> if (!led.isOn(10, 5)) ...
+	</p>
+	<p>
+		See also:<br> <a href="api_en.html#status">Lamp Status</a>
+	</p>
+
+	<h3 id="led.get_x_y">get(x, y)</h3>
+	<p>
+		This function can check if a lamp is on or off. If the lamp is on this
+		function returns <b>ON</b>, otherwise <b>OFF</b>. The first column and
+		row have the value <b>0</b>. The maximum value is <b><a
+			href="#led.width">led.width</a> - 1</b> and <b><a href="#led.height">led.height</a>
+			- 1</b> respectively.
+	</p>
+	<p class="code">
+		// If the lamp is on...<br> if (led.get(10, 5) == ON) ...<br>
+		// or<br> if (led.get(10, 5)) ...<br> <br> // If the
+		lamp is off...<br> if (led.get(10, 5) == OFF) ...<br> // or<br>
+		if (!led.get(10, 5)) ...
+	</p>
+	<p>
+		See also:<br> <a href="api_en.html#status">Lamp Status</a>
+	</p>
+
+	<h3 id="led.set_x_y_status">set(x, y, status)</h3>
+	<p>
+		This function turns on or off the lamp at column <b>x</b> and row <b>y</b>.
+		This operation uses the current value of the property <a
+			href="#led.color">color</a>. The first column and row have the value
+		<b>0</b>. The maximum value is <b><a href="#led.width">led.width</a>
+			- 1</b> and <b><a href="#led.height">led.height</a> - 1</b> respectively.
+	</p>
+	<p class="code">
+		// Turn on the lamp in the upper left corner<br> led.set(0, 0,
+		ON);<br> <br> // Turn off the lamp in the lower right corner<br>
+		led.set(led.width - 1, led.height - 1, OFF);
+	</p>
+	<p>
+		See also:<br> <a href="api_en.html#status">Lamp Status</a>
+	</p>
+
+	<h3 id="led.getColor_x_y">getColor(x, y)</h3>
+	<p>
+		This function checks with which color the lamp is shining. If the lamp
+		is turned on this function returns the color (see property <a
+			href="#led.color">color</a>), otherwise it returns <b>null</b>. The
+		first column and row have the value <b>0</b>. The maximum value is <b><a
+			href="#led.width">led.width</a> - 1</b> and <b><a href="#led.height">led.height</a>
+			- 1</b> respectively.
+	</p>
+	<p class="code">
+		// If the lamp is red...<br> if (led.getColor(10, 5) == RED) ...<br>
+		<br> // If the lamp is off...<br> if (led.getColor(10, 5) ==
+		null) ...<br>
+	</p>
+	<p>
+		See also:<br> <a href="api_en.html#colors">Colors</a>
+	</p>
+
+	<h3 id="led.off">off()</h3>
+	<p>This function turns off all lamps on the LED display.</p>
+	<p class="code">
+		// Turn off all lamps<br> led.off();
+	</p>
+
+	<h3 id="led.off_x_y">on(x, y)</h3>
+	<p>
+		This function turns off the lamp at column <b>x</b> and row <b>y</b>.
+		The first column and row have the value <b>0</b>. The maximum value is
+		<b><a href="#led.width">led.width</a> - 1</b> and <b><a
+			href="#led.height">led.height</a> - 1</b> respectively.
+	</p>
+	<p class="code">
+		// Turn off the lamp in the upper left corner<br> led.off(0, 0);<br>
+		<br> // Turn off the lamp in the lower right corner<br>
+		led.off(led.width - 1, led.height - 1);<br>
+	</p>
+
+	<h3 id="led.invert">invert()</h3>
+	<p>
+		This function inverts all lamps of the LED display. This operation
+		uses the current value of the property <a href="#led.color">color</a>.
+	</p>
+	<p class="code">
+		// Invert all lamps<br> led.invert();
+	</p>
+
+	<h3 id="led.invert_x_y">invert(x, y)</h3>
+	<p>
+		This function inverts the lamp at column <b>x</b> and row <b>y</b>.
+		This operation uses the current value of the property <a
+			href="#led.color">color</a>. The first column and row have the value
+		<b>0</b>. The maximum value is <b><a href="#led.width">led.width</a>
+			- 1</b> and <b><a href="#led.height">led.height</a> - 1</b> respectively.
+	</p>
+	<p class="code">
+		// Invert the lamp in the upper left corner<br> led.invert(0, 0);<br>
+		<br> // Inverts the lamp in the lower right corner<br>
+		led.invert(led.width - 1, led.height - 1);
+	</p>
+
+	<h3 id="led.writeOn_x_y_text">writeOn(x, y, text)</h3>
+	<p>
+		This function is deprecated. Please use <a
+			href="#led.write_x_y_status_text">write(x, y, status, text)</a>
+		instead.
+	</p>
+	<p>
+		This function writes a text by turning on lamps. This operation uses
+		the current value of the property <a href="#led.color">color</a>. Each
+		character has a width of 5 lamps and a height of 8 lamps. The position
+		is the upper left lamp of the first character. Between the characters
+		one column will be left as a space. If a character is not supported a
+		blank will be written.
+	</p>
+	<p class="code">
+		// Write the word 'Hello'<br> led.writeOn(1, 1, "Hello");
+	</p>
+
+	<h3 id="led.writeOff_x_y_text">writeOff(x, y, text)</h3>
+	<p>
+		This function is deprecated. Please use <a
+			href="#led.write_x_y_status_text">write(x, y, status, text)</a>
+		instead.
+	</p>
+	<p>This function writes a text by turning off lamps. Each character
+		has a width of 5 lamps and a height of 8 lamps. The position is the
+		upper left lamp of the first character. Between the characters one
+		column will be left as a space. If a character is not supporte a blank
+		will be written.</p>
+	<p class="code">
+		// Write the word 'Hello'<br> led.writeOn(1, 1, "Hello");
+	</p>
+
+	<h3 id="led.write_x_y_status_text">write(x, y, status, text)</h3>
+	<p>This function writes a text by turning on or off the lamps. Each
+		character has a width of 5 lamps and a height of 8 lamps. The position
+		is the upper left lamp of the first character. Between the characters
+		one column will be left as a space. If a character is not supporte a
+		blank will be written.</p>
+	<p class="code">
+		// Write the word 'Hello' (turn on)<br> led.write(1, 1, ON,
+		"Hello");
+	</p>
+	<p>
+		See also:<br> <a href="api_en.html#status">Lamp Status</a>
+	</p>
+
+	<h3 id="led.move_x_y_status">move(x, y, status)</h3>
+	<p>
+		This function moves the displayed content in the specified direction.
+		All new lamps will set according to the status. A positive <b>x</b>
+		value moves to the right, a negative <b>x</b> value moves to the left.
+		A positive <b>y</b> value moves down, a negative <b>y</b> value moves
+		up.
+	</p>
+	<p class="code">
+		// Move 2 right and 1 up<br> // leave new lamps off<br>
+		led.move(2, -1, OFF);
+	</p>
+	<p>
+		See also:<br> <a href="api_en.html#status">Lamp Status</a>
+	</p>
+</body>
+</html>
