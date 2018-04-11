@@ -23,7 +23,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -69,13 +68,13 @@ public final class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        int insertPos = 1;
-        for (TutorialCategory category : TutorialCategory.values()) {
-            Menu menu = new Menu(category.getDisplayName());
+        var insertPos = 1;
+        for (var category : TutorialCategory.values()) {
+            var menu = new Menu(category.getDisplayName());
 
-            for (Tutorial tutorial : Tutorial.values()) {
+            for (var tutorial : Tutorial.values()) {
                 if (tutorial.getCategory() == category) {
-                    MenuItem item = new MenuItem(tutorial.getDisplayName() + "...");
+                    var item = new MenuItem(tutorial.getDisplayName() + "...");
                     item.getProperties().put(Tutorial.class, tutorial);
                     item.setOnAction(e -> openTutorial(
                             (Tutorial) ((MenuItem) e.getSource()).getProperties().get(Tutorial.class)));
@@ -98,13 +97,12 @@ public final class MainController implements Initializable {
 
     @FXML
     protected void newFile() {
-        Tab tab = createFileTab();
-        addFileTab(tab);
+        addFileTab(createFileTab());
     }
 
     @FXML
     protected void openFile() {
-        Path file = FileChoosers.showOpenFileChooser(getStage());
+        var file = FileChoosers.showOpenFileChooser(getStage());
         if (file != null) {
             Settings.setMRUOpenDir(file.getParent());
             performOpen(file);
@@ -115,10 +113,10 @@ public final class MainController implements Initializable {
     protected void configureMRUMenu() {
         this.mruMenu.getItems().clear();
 
-        List<Path> mruFiles = Settings.getMRUFiles();
+        var mruFiles = Settings.getMRUFiles();
         if (!mruFiles.isEmpty()) {
             for (Path file : mruFiles) {
-                MenuItem item = new MenuItem(file.getFileName().toString());
+                var item = new MenuItem(file.getFileName().toString());
                 item.getProperties().put(Path.class, file);
                 item.setOnAction(e -> performOpen((Path) ((MenuItem) e.getSource()).getProperties().get(Path.class)));
                 this.mruMenu.getItems().add(item);
@@ -193,7 +191,7 @@ public final class MainController implements Initializable {
 
     @FXML
     protected void showDisplay() {
-        DisplayController display = getDisplayController();
+        var display = getDisplayController();
         display.getStage().show();
         display.getStage().toFront();
     }
@@ -214,7 +212,7 @@ public final class MainController implements Initializable {
 
     @FXML
     protected void showAPIDocumentation() {
-        APIController api = getAPIController();
+        var api = getAPIController();
         api.getStage().show();
         api.getStage().toFront();
     }
@@ -222,7 +220,7 @@ public final class MainController implements Initializable {
     @FXML
     protected void sendFeedback() {
         if (Desktop.isDesktopSupported()) {
-            Desktop desktop = Desktop.getDesktop();
+            var desktop = Desktop.getDesktop();
             if (desktop.isSupported(Desktop.Action.MAIL)) {
                 try {
                     desktop.mail(new URI("mailto:frank@ulbricht.name"));
@@ -235,9 +233,9 @@ public final class MainController implements Initializable {
 
     @FXML
     protected void about() {
-        String appVersion = getClass().getPackage().getImplementationVersion();
-        String javaVersion = System.getProperty("java.version");
-        String text = String.format(Resources.getString("alert.info.about.textPattern"), appVersion, javaVersion);
+        var appVersion = getClass().getPackage().getImplementationVersion();
+        var javaVersion = System.getProperty("java.version");
+        var text = String.format(Resources.getString("alert.info.about.textPattern"), appVersion, javaVersion);
         Alerts.info(getStage(), Resources.getString("alert.info.about.header"), text);
     }
 
@@ -247,9 +245,9 @@ public final class MainController implements Initializable {
     }
 
     boolean canClose() {
-        List<SourceTabController> controllers = this.sourceTabPane.getTabs().stream().map(this::getSourceTabController)
+        var controllers = this.sourceTabPane.getTabs().stream().map(this::getSourceTabController)
                 .filter(Optional::isPresent).map(Optional::get).collect(Collectors.toCollection(ArrayList::new));
-        for (SourceTabController controller : controllers) {
+        for (var controller : controllers) {
             if (!controller.canClose())
                 return false;
         }
@@ -257,7 +255,7 @@ public final class MainController implements Initializable {
     }
 
     private Tab createFileTab() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("source-tab.fxml"), Resources.BUNDLE);
+        var loader = new FXMLLoader(getClass().getResource("source-tab.fxml"), Resources.BUNDLE);
         Tab tab;
         try {
             tab = loader.load();
@@ -280,7 +278,7 @@ public final class MainController implements Initializable {
     }
 
     private Optional<SourceTabController> getCurrentSourceTabController() {
-        Tab tab = this.sourceTabPane.getSelectionModel().getSelectedItem();
+        var tab = this.sourceTabPane.getSelectionModel().getSelectedItem();
         if (tab != null)
             return getSourceTabController(tab);
         return Optional.empty();
@@ -295,8 +293,8 @@ public final class MainController implements Initializable {
     }
 
     private void performOpen(Path file) {
-        Tab tab = createFileTab();
-        SourceTabController controller = (SourceTabController) tab.getProperties().get(SourceTabController.ID);
+        var tab = createFileTab();
+        var controller = (SourceTabController) tab.getProperties().get(SourceTabController.ID);
 
         try {
             controller.getSourceFile().load(file);
@@ -310,7 +308,7 @@ public final class MainController implements Initializable {
 
     private void performExecute(SourceTabController controller) {
         showDisplay();
-        SourceFile file = controller.getSourceFile();
+        var file = controller.getSourceFile();
         try {
             getDisplayController().execute(file.getFileName(), file.getSource());
         } catch (IllegalStateException ex) {
@@ -329,7 +327,7 @@ public final class MainController implements Initializable {
 
     private synchronized DisplayController getDisplayController() {
         if (this.displayController == null) {
-            FXMLLoader loader = new FXMLLoader(DisplayController.class.getResource("display.fxml"), Resources.BUNDLE);
+            var loader = new FXMLLoader(DisplayController.class.getResource("display.fxml"), Resources.BUNDLE);
             Parent display;
             try {
                 display = loader.load();
@@ -337,9 +335,9 @@ public final class MainController implements Initializable {
                 throw new InternalError(ex);
             }
 
-            Scene scene = new Scene(display);
+            var scene = new Scene(display);
 
-            Stage stage = new Stage();
+            var stage = new Stage();
             stage.setTitle(Resources.getString("display.title"));
             stage.getIcons().addAll(getStage().getIcons());
             stage.setScene(scene);
@@ -354,7 +352,7 @@ public final class MainController implements Initializable {
 
     private synchronized APIController getAPIController() {
         if (this.apiController == null) {
-            FXMLLoader loader = new FXMLLoader(DisplayController.class.getResource("api.fxml"), Resources.BUNDLE);
+            var loader = new FXMLLoader(DisplayController.class.getResource("api.fxml"), Resources.BUNDLE);
             Parent display;
             try {
                 display = loader.load();
@@ -362,9 +360,9 @@ public final class MainController implements Initializable {
                 throw new InternalError(ex);
             }
 
-            Scene scene = new Scene(display);
+            var scene = new Scene(display);
 
-            Stage stage = new Stage();
+            var stage = new Stage();
             stage.setTitle(Resources.getString("api.title"));
             stage.getIcons().addAll(getStage().getIcons());
             stage.setScene(scene);
@@ -375,7 +373,7 @@ public final class MainController implements Initializable {
     }
 
     private void openTutorial(Tutorial tutorial) {
-        Tab tab = createFileTab();
+        var tab = createFileTab();
         getSourceTabController(tab).ifPresent(controller -> {
             controller.getSourceFile().setSource(tutorial.getSource());
             addFileTab(tab);

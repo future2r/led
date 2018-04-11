@@ -20,12 +20,12 @@ public final class MatrixFont {
     private MatrixFont(int width, int height, ResourceBundle bundle) {
         this.width = width;
         this.height = height;
-        for (int ascii = 0; ascii < NUM_CHARACTERS; ascii++) {
+        for (var ascii = 0; ascii < NUM_CHARACTERS; ascii++) {
             try {
                 char[] pattern = bundle.getString(Integer.toString(ascii)).toCharArray();
                 this.characters[ascii] = new byte[width * height];
-                int idx = 0;
-                for (char c : pattern) {
+                var idx = 0;
+                for (var c : pattern) {
                     this.characters[ascii][idx++] = c == '#' ? ON : OFF;
                 }
             } catch (MissingResourceException ex) {

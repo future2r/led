@@ -4,12 +4,14 @@ import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TextArea;
 import javafx.stage.Window;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Path;
 import java.util.ResourceBundle;
 
 public final class SourceTabController implements Initializable {
@@ -49,7 +51,7 @@ public final class SourceTabController implements Initializable {
 
     public boolean canClose() {
         if (this.sourceFile.isDirty()) {
-            ButtonType result = Alerts.confirm(getWindow(), Resources.getString("alert.confirm.saveChanges.header"),
+            var result = Alerts.confirm(getWindow(), Resources.getString("alert.confirm.saveChanges.header"),
                     String.format(Resources.getString("alert.confirm.saveChanges.textPattern"),
                             this.sourceFile.getFileName()));
             if (result == ButtonType.YES) return save();
@@ -71,7 +73,7 @@ public final class SourceTabController implements Initializable {
     }
 
     public boolean saveAs() {
-        Path filePath = this.sourceFile.getFilePath();
+        var filePath = this.sourceFile.getFilePath();
         if (filePath == null) {
             filePath = Settings.getMRUSaveDir().resolve(this.sourceFile.getFileName());
         }
@@ -79,8 +81,8 @@ public final class SourceTabController implements Initializable {
         filePath = FileChoosers.showSaveFileChooser(getWindow(), filePath);
         if (filePath != null) {
             Settings.setMRUSaveDir(filePath.getParent());
-            String fileName = filePath.getFileName().toString();
-            int idx = fileName.indexOf('.');
+            var fileName = filePath.getFileName().toString();
+            var idx = fileName.indexOf('.');
             if (idx < 0) {
                 filePath = filePath.getParent().resolve(fileName + ".js");
             }
@@ -107,7 +109,7 @@ public final class SourceTabController implements Initializable {
     }
 
     public void delete() {
-        IndexRange selection = this.textArea.getSelection();
+        var selection = this.textArea.getSelection();
         if (selection.getLength() > 0) this.textArea.deleteText(selection);
     }
 
@@ -120,17 +122,17 @@ public final class SourceTabController implements Initializable {
     }
 
     private void updateCoordsLabel() {
-        int caretPos = this.textArea.getCaretPosition();
-        String content = this.textArea.getText();
+        var caretPos = this.textArea.getCaretPosition();
+        var content = this.textArea.getText();
 
         String[] lines = content.split("\n", Integer.MAX_VALUE);
 
-        int scanPos = 0;
+        var scanPos = 0;
         int line;
-        int column = 0;
+        var column = 0;
         for (line = 0; line < lines.length; line++) {
-            String currentLine = lines[line];
-            int currentLineLength = currentLine.length() + 1; // one for the line break
+            var currentLine = lines[line];
+            var currentLineLength = currentLine.length() + 1; // one for the line break
             if ((scanPos + currentLineLength) > caretPos) {
                 column = caretPos - scanPos;
 

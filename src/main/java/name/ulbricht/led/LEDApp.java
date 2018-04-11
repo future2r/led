@@ -16,11 +16,11 @@ public class LEDApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"), Resources.BUNDLE);
+        var loader = new FXMLLoader(getClass().getResource("main.fxml"), Resources.BUNDLE);
         Parent root = loader.load();
         MainController controller = loader.getController();
 
-        Scene scene = new Scene(root, 900, 650);
+        var scene = new Scene(root, 900, 650);
 
         primaryStage.setTitle(Resources.getString("main.title"));
         primaryStage.getIcons().addAll(Resources.getIcons("led-diode", Resources.ICON_COLOR_WHITE));
@@ -38,7 +38,7 @@ public class LEDApp extends Application {
     }
 
     private static void hideSplashScreen() {
-        SplashScreen splashScreen = SplashScreen.getSplashScreen();
+        var splashScreen = SplashScreen.getSplashScreen();
         if (splashScreen != null && splashScreen.isVisible()) {
             splashScreen.close();
         }

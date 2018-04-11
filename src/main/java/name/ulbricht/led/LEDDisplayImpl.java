@@ -91,7 +91,7 @@ public final class LEDDisplayImpl implements LEDDisplay {
 
     @Override
     public void setColor(Color color) {
-        if (color == null)  throw new IllegalArgumentException(Resources.getString("error.colorRequired"));
+        if (color == null) throw new IllegalArgumentException(Resources.getString("error.colorRequired"));
         this.color = color;
     }
 
@@ -217,13 +217,13 @@ public final class LEDDisplayImpl implements LEDDisplay {
         if (text == null)
             throw new IllegalArgumentException(Resources.getString("error.textRequired"));
 
-        MatrixFont font = MatrixFont.FONT_5x8;
+        var font = MatrixFont.FONT_5x8;
         int pos = x;
-        for (char c : text.toCharArray()) {
+        for (var c : text.toCharArray()) {
             byte[] charDots = font.getCharacter(c);
             if (charDots != null) {
-                for (int i = 0; i < font.width; i++) {
-                    for (int j = 0; j < font.height; j++) {
+                for (var i = 0; i < font.width; i++) {
+                    for (var j = 0; j < font.height; j++) {
                         if (charDots[j * font.width + i] == MatrixFont.ON) {
                             set(pos + i, y + j, status);
                         }
@@ -237,11 +237,11 @@ public final class LEDDisplayImpl implements LEDDisplay {
     @Override
     public void move(int x, int y, boolean status) {
         delay();
-        DotMatrix srcDots = getDots();
-        for (int col = 0; col < this.width; col++) {
-            for (int row = 0; row < this.height; row++) {
-                int srcX = col - x;
-                int srcY = row - y;
+        var srcDots = getDots();
+        for (var col = 0; col < this.width; col++) {
+            for (var row = 0; row < this.height; row++) {
+                var srcX = col - x;
+                var srcY = row - y;
                 if (srcX < 0 || srcX >= srcDots.getWidth() || srcY < 0 || srcY >= srcDots.getHeight())
                     this.dots[row * this.width + col] = status ? this.color : Color.OFF;
                 else
@@ -284,7 +284,7 @@ public final class LEDDisplayImpl implements LEDDisplay {
 
     private void invertAllDots() {
         delay();
-        for (int i = 0; i < (this.width * this.height); i++) {
+        for (var i = 0; i < (this.width * this.height); i++) {
             this.dots[i] = this.dots[i] == Color.OFF ? this.color : Color.OFF;
         }
         fireAllDotsChanged();
@@ -353,8 +353,8 @@ public final class LEDDisplayImpl implements LEDDisplay {
     private void fireDisplayChanged(LEDDisplayChangeEvent.Type type, int x, int y) {
         LEDDisplayChangeListener[] listeners = this.eventListeners.getListeners(LEDDisplayChangeListener.class);
         if (listeners.length > 0) {
-            LEDDisplayChangeEvent event = new LEDDisplayChangeEvent(this.getDots(), type, x, y);
-            for (LEDDisplayChangeListener listener : listeners) {
+            var event = new LEDDisplayChangeEvent(this.getDots(), type, x, y);
+            for (var listener : listeners) {
                 listener.displayChanged(event);
             }
         }

@@ -15,7 +15,7 @@ final class Alerts {
     private static final String GLOBAL_CSS = Alerts.class.getResource("global.css").toExternalForm();
 
     static void info(Window owner, String header, String message) {
-        final Alert alert = new Alert(AlertType.INFORMATION);
+        final var alert = new Alert(AlertType.INFORMATION);
         alert.getDialogPane().getStylesheets().add(GLOBAL_CSS);
         alert.initOwner(owner);
         alert.setTitle(Resources.getString("alerts.info.title"));
@@ -26,7 +26,7 @@ final class Alerts {
     }
 
     static void error(Window owner, String header, String message) {
-        final Alert alert = new Alert(AlertType.INFORMATION);
+        final var alert = new Alert(AlertType.INFORMATION);
         alert.getDialogPane().getStylesheets().add(GLOBAL_CSS);
         alert.initOwner(owner);
         alert.setTitle(Resources.getString("alerts.error.title"));
@@ -37,7 +37,7 @@ final class Alerts {
     }
 
     static ButtonType confirm(Window owner, String header, String message) {
-        final Alert alert = new Alert(AlertType.CONFIRMATION);
+        final var alert = new Alert(AlertType.CONFIRMATION);
         alert.getDialogPane().getStylesheets().add(GLOBAL_CSS);
         alert.initOwner(owner);
         alert.setTitle(Resources.getString("alerts.confirm.title"));
@@ -64,14 +64,14 @@ final class Alerts {
 
     private static void largeAlert(Window owner, AlertType alertType, String title, String headerText, String message,
                                    String details) {
-        final Alert alert = new Alert(alertType);
+        final var alert = new Alert(alertType);
         alert.getDialogPane().getStylesheets().add(GLOBAL_CSS);
         alert.initOwner(owner);
         alert.setTitle(title);
         alert.setHeaderText(headerText);
         alert.setContentText(message);
 
-        final TextArea textArea = new TextArea(details);
+        final var textArea = new TextArea(details);
         textArea.setEditable(false);
         textArea.setWrapText(true);
         textArea.setMaxWidth(Double.MAX_VALUE);

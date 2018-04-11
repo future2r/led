@@ -6,7 +6,9 @@ import name.ulbricht.led.api.Environment;
 import name.ulbricht.led.api.LEDDisplay;
 import name.ulbricht.led.api.Log;
 
-import javax.script.*;
+import javax.script.ScriptContext;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 
 public final class ProgramTask extends Task<Void> implements Environment {
 
@@ -17,11 +19,11 @@ public final class ProgramTask extends Task<Void> implements Environment {
     public ProgramTask(String source, LEDDisplay led, Log log) {
         this.source = source;
 
-        ScriptEngineManager engineManager = new ScriptEngineManager();
+        var engineManager = new ScriptEngineManager();
         this.engine = engineManager.getEngineByMimeType("text/javascript");
 
         // inject environments
-        Bindings bindings = this.engine.createBindings();
+        var bindings = this.engine.createBindings();
 
         bindings.put("led", led);
 
@@ -58,7 +60,7 @@ public final class ProgramTask extends Task<Void> implements Environment {
             this.engine.eval(this.source);
         } catch (RuntimeException ex) {
             // there was an error during script execution
-            Throwable cause = ex.getCause();
+            var cause = ex.getCause();
             if (!(cause instanceof InterruptedException)) {
                 // the script was not interrupted
                 throw ex;

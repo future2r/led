@@ -80,7 +80,7 @@ public final class DisplayController implements Initializable {
         this.currentTask.setOnCancelled(this::taskCancelled);
         this.currentTask.setOnFailed(this::taskFailed);
 
-        Thread thread = new Thread(this.currentTask);
+        var thread = new Thread(this.currentTask);
         thread.setDaemon(true);
         thread.start();
     }
@@ -97,7 +97,7 @@ public final class DisplayController implements Initializable {
     }
 
     private void displayChanged(LEDDisplayChangeEvent event) {
-        LEDDisplay.DotMatrix dots = event.getSource();
+        var dots = event.getSource();
         switch (event.getType()) {
             case DISPLAY_SIZE:
                 updateCanvasSize(dots);
@@ -115,11 +115,11 @@ public final class DisplayController implements Initializable {
 
     private void updateCanvasSize(LEDDisplay.DotMatrix dots) {
         Platform.runLater(() -> {
-            Stage stage = getStage();
+            var stage = getStage();
 
             // remember the current position
-            double x = stage.getX();
-            double y = stage.getY();
+            var x = stage.getX();
+            var y = stage.getY();
 
             // hide/show to trigger layout
             stage.hide();
@@ -145,8 +145,8 @@ public final class DisplayController implements Initializable {
     private void updateAllDots(LEDDisplay.DotMatrix dots) {
         Platform.runLater(() -> {
             GraphicsContext gc = this.canvas.getGraphicsContext2D();
-            for (int x = 0; x < dots.getWidth(); x++) {
-                for (int y = 0; y < dots.getHeight(); y++) {
+            for (var x = 0; x < dots.getWidth(); x++) {
+                for (var y = 0; y < dots.getHeight(); y++) {
                     gc.drawImage(dots.getColor(x, y).getImage(), x * LED_WIDTH, y * LED_HEIGHT);
                 }
             }
@@ -170,7 +170,7 @@ public final class DisplayController implements Initializable {
     private void taskFailed(WorkerStateEvent e) {
         setStatusLabel(Resources.getString("display.status.failed"));
 
-        Throwable ex = e.getSource().getException();
+        var ex = e.getSource().getException();
         this.log.error(ex.toString());
         Alerts.exception(getStage(), ex);
 

@@ -3,7 +3,6 @@ package name.ulbricht.led;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 
-import java.io.File;
 import java.nio.file.Path;
 
 final class FileChoosers {
@@ -12,17 +11,17 @@ final class FileChoosers {
     private static FileChooser saveFileChooser;
 
     static Path showOpenFileChooser(Window window) {
-        FileChooser fileChooser = getOpenFileChooser();
+        var fileChooser = getOpenFileChooser();
         fileChooser.setInitialDirectory(Settings.getMRUOpenDir().toFile());
-        File selectedFile = fileChooser.showOpenDialog(window);
+        var selectedFile = fileChooser.showOpenDialog(window);
         return selectedFile != null ? selectedFile.toPath() : null;
     }
 
     static Path showSaveFileChooser(Window window, Path file) {
-        FileChooser fileChooser = getSaveFileChooser();
+        var fileChooser = getSaveFileChooser();
         fileChooser.setInitialDirectory(file.getParent().toFile());
         fileChooser.setInitialFileName(file.getFileName().toString());
-        File selectedFile = fileChooser.showSaveDialog(window);
+        var selectedFile = fileChooser.showSaveDialog(window);
         return selectedFile != null ? selectedFile.toPath() : null;
     }
 
@@ -41,7 +40,7 @@ final class FileChoosers {
     }
 
     private static FileChooser createFileChooser() {
-        FileChooser fileChooser = new FileChooser();
+        var fileChooser = new FileChooser();
         fileChooser.getExtensionFilters()
                 .add(new FileChooser.ExtensionFilter(Resources.getString("extensionFilter.js.description"),
                         Resources.getString("extensionFilter.js.pattern")));

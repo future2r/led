@@ -17,15 +17,15 @@ final class Settings {
     private static final String MRU_OPEN_DIR = "openDir";
     private static final String MRU_SAVE_DIR = "saveDir";
 
-    public static List<Path> getMRUFiles() {
+    static List<Path> getMRUFiles() {
         List<Path> files = new ArrayList<>();
 
-        Preferences node = Preferences.userRoot().node(MRU);
-        for (int i = 0; i < MAX_MRU_COUNT; i++) {
-            String fileName = node.get(Integer.toString(i), null);
+        var node = Preferences.userRoot().node(MRU);
+        for (var i = 0; i < MAX_MRU_COUNT; i++) {
+            var fileName = node.get(Integer.toString(i), null);
             if (fileName != null) {
                 try {
-                    Path file = Paths.get(fileName);
+                    var file = Paths.get(fileName);
                     if (Files.exists(file)) {
                         files.add(file);
                     }
@@ -37,9 +37,9 @@ final class Settings {
         return files;
     }
 
-    public static void addMRUFile(Path file) {
-        List<Path> files = getMRUFiles();
-        int idx = files.indexOf(file);
+    static void addMRUFile(Path file) {
+        var files = getMRUFiles();
+        var idx = files.indexOf(file);
         if (idx > 0) {
             files.remove(idx);
             files.add(0, file);
@@ -47,8 +47,8 @@ final class Settings {
             files.add(0, file);
         }
 
-        Preferences node = Preferences.userRoot().node(MRU);
-        for (int i = 0; i < MAX_MRU_COUNT; i++) {
+        var node = Preferences.userRoot().node(MRU);
+        for (var i = 0; i < MAX_MRU_COUNT; i++) {
             if (i < files.size()) {
                 node.put(Integer.toString(i), files.get(i).toString());
             } else {
@@ -57,26 +57,26 @@ final class Settings {
         }
     }
 
-    public static Path getMRUOpenDir() {
+    static Path getMRUOpenDir() {
         return getPath(Preferences.userRoot().node(MRU), MRU_OPEN_DIR);
     }
 
-    public static void setMRUOpenDir(Path dir) {
-        Preferences node = Preferences.userRoot().node(MRU);
+    static void setMRUOpenDir(Path dir) {
+        var node = Preferences.userRoot().node(MRU);
         node.put(MRU_OPEN_DIR, dir.toString());
     }
 
-    public static Path getMRUSaveDir() {
+    static Path getMRUSaveDir() {
         return getPath(Preferences.userRoot().node(MRU), MRU_SAVE_DIR);
     }
 
-    public static void setMRUSaveDir(Path dir) {
-        Preferences node = Preferences.userRoot().node(MRU);
+    static void setMRUSaveDir(Path dir) {
+        var node = Preferences.userRoot().node(MRU);
         node.put(MRU_SAVE_DIR, dir.toString());
     }
 
     private static Path getPath(Preferences node, String key) {
-        String dir = node.get(key, null);
+        var dir = node.get(key, null);
         if (dir != null) {
             try {
                 return Paths.get(dir);
@@ -88,10 +88,10 @@ final class Settings {
     }
 
     private static Path getDefaultDirectory() {
-        Path homePath = Paths.get(System.getProperty("user.home"));
+        var homePath = Paths.get(System.getProperty("user.home"));
 
         if (System.getProperty("os.name").startsWith("Windows")) {
-            Path docPath = homePath.resolve("Documents");
+            var docPath = homePath.resolve("Documents");
             if (Files.exists(docPath)) return docPath;
         }
 

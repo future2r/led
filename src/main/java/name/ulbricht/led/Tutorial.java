@@ -2,7 +2,6 @@ package name.ulbricht.led;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
@@ -31,12 +30,12 @@ public enum Tutorial {
     }
 
     public String getSource() {
-        String fileName = Resources.getString(String.format("Tutorial.%s.fileName", name()));
-        try (InputStream is = getClass().getResourceAsStream(String.format("tutorials/%s", fileName));
-             InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
-             BufferedReader br = new BufferedReader(isr)) {
+        var fileName = Resources.getString(String.format("Tutorial.%s.fileName", name()));
+        try (var is = getClass().getResourceAsStream(String.format("tutorials/%s", fileName));
+             var isr = new InputStreamReader(is, StandardCharsets.UTF_8);
+             var br = new BufferedReader(isr)) {
 
-            StringBuilder buf = new StringBuilder();
+            var buf = new StringBuilder();
             String line;
             while ((line = br.readLine()) != null) {
                 buf.append(line);
