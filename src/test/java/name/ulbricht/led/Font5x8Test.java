@@ -1,13 +1,13 @@
 package name.ulbricht.led;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class Font5x8Test {
+final class Font5x8Test {
 
     @Test
-    public void testFont_5x8() {
+    void testFont_5x8() {
         assertNotNull(MatrixFont.FONT_5x8);
 
         assertEquals(5, MatrixFont.FONT_5x8.width);

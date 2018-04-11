@@ -3,49 +3,42 @@ package name.ulbricht.led;
 import name.ulbricht.led.api.Color;
 import name.ulbricht.led.api.LEDDisplay;
 import name.ulbricht.led.api.LEDDisplayChangeEvent;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
 import java.util.function.BiConsumer;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class LEDDisplayTest {
+final class LEDDisplayTest {
 
     private final LEDDisplay led = new LEDDisplayImpl(new LogImpl());
-
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
 
     private int eventCount;
 
     @Test
-    public void testInit() {
+    void testInit() {
         assertDefaults();
     }
 
     @Test
-    public void testWidth() {
+    void testWidth() {
         this.led.setWidth(42);
         assertEquals(42, this.led.getWidth());
         assertEquals(LEDDisplay.DEFAULT_HEIGHT, this.led.getHeight());
     }
 
     @Test
-    public void testWidthLessMin() {
-        this.thrown.expect(IllegalArgumentException.class);
-        this.led.setWidth(0);
+    void testWidthLessMin() {
+        assertThrows(IllegalArgumentException.class, () -> this.led.setWidth(0));
     }
 
     @Test
-    public void testWidthGreaterMax() {
-        this.thrown.expect(IllegalArgumentException.class);
-        this.led.setWidth(LEDDisplay.MAX_WIDTH + 1);
+    void testWidthGreaterMax() {
+        assertThrows(IllegalArgumentException.class, () -> this.led.setWidth(LEDDisplay.MAX_WIDTH + 1));
     }
 
     @Test
-    public void testWidthEvent() {
+    void testWidthEvent() {
         this.led.addLEDDisplayChangeListener(e -> {
             this.eventCount++;
             assertDisplaySizeEvent(e);
@@ -56,26 +49,24 @@ public class LEDDisplayTest {
     }
 
     @Test
-    public void testHeight() {
+    void testHeight() {
         this.led.setHeight(42);
         assertEquals(42, this.led.getHeight());
         assertEquals(LEDDisplay.DEFAULT_WIDTH, this.led.getWidth());
     }
 
     @Test
-    public void testHeightLessMin() {
-        this.thrown.expect(IllegalArgumentException.class);
-        this.led.setHeight(0);
+    void testHeightLessMin() {
+        assertThrows(IllegalArgumentException.class, () -> this.led.setHeight(0));
     }
 
     @Test
-    public void testHeightGreaterMax() {
-        this.thrown.expect(IllegalArgumentException.class);
-        this.led.setHeight(LEDDisplay.MAX_HEIGHT + 1);
+    void testHeightGreaterMax() {
+        assertThrows(IllegalArgumentException.class, () -> this.led.setHeight(LEDDisplay.MAX_HEIGHT + 1));
     }
 
     @Test
-    public void testHeightEvent() {
+    void testHeightEvent() {
         this.led.addLEDDisplayChangeListener(e -> {
             this.eventCount++;
             assertDisplaySizeEvent(e);
@@ -86,7 +77,7 @@ public class LEDDisplayTest {
     }
 
     @Test
-    public void testColor() {
+    void testColor() {
         for (var color : Color.values()) {
             this.led.setColor(color);
             assertEquals(color, this.led.getColor());
@@ -94,30 +85,27 @@ public class LEDDisplayTest {
             assertEquals(color, this.led.getColor(10, 5));
         }
 
-        this.thrown.expect(IllegalArgumentException.class);
-        this.led.setColor(null);
+        assertThrows(IllegalArgumentException.class, () -> this.led.setColor(null));
     }
 
     @Test
-    public void testDelay() {
+    void testDelay() {
         this.led.setDelay(42);
         assertEquals(42, this.led.getDelay());
     }
 
     @Test
-    public void testDelayLessMin() {
-        this.thrown.expect(IllegalArgumentException.class);
-        this.led.setDelay(-1);
+    void testDelayLessMin() {
+        assertThrows(IllegalArgumentException.class, () -> this.led.setDelay(-1));
     }
 
     @Test
-    public void testDelayGreaterMax() {
-        this.thrown.expect(IllegalArgumentException.class);
-        this.led.setDelay(LEDDisplay.MAX_DELAY + 1);
+    void testDelayGreaterMax() {
+        assertThrows(IllegalArgumentException.class, () -> this.led.setDelay(LEDDisplay.MAX_DELAY + 1));
     }
 
     @Test
-    public void testStrict() {
+    void testStrict() {
         this.led.setStrict(false);
         assertFalse(this.led.isStrict());
 
@@ -126,7 +114,7 @@ public class LEDDisplayTest {
     }
 
     @Test
-    public void testReset() {
+    void testReset() {
         this.led.setWidth(42);
         this.led.setHeight(42);
         this.led.setColor(Color.BLUE);
@@ -139,7 +127,7 @@ public class LEDDisplayTest {
     }
 
     @Test
-    public void testResetEvent() {
+    void testResetEvent() {
         this.led.addLEDDisplayChangeListener(e -> {
             this.eventCount++;
             assertDisplaySizeEvent(e);
@@ -150,20 +138,20 @@ public class LEDDisplayTest {
     }
 
     @Test
-    public void testDelayFunction() {
+    void testDelayFunction() {
         var start = System.currentTimeMillis();
         this.led.delay(500);
         assertTrue((System.currentTimeMillis() - start) >= 500);
     }
 
     @Test
-    public void testOn() {
+    void testOn() {
         this.led.on();
         forEach(this.led, (x, y) -> assertTrue(this.led.get(x, y)));
     }
 
     @Test
-    public void testOnEvent() {
+    void testOnEvent() {
         this.led.addLEDDisplayChangeListener(e -> {
             this.eventCount++;
             assertAllDotsEvent(e);
@@ -174,7 +162,7 @@ public class LEDDisplayTest {
     }
 
     @Test
-    public void testOnAt() {
+    void testOnAt() {
         this.led.setDelay(0);
         forEach(this.led, (x, y) -> {
             this.led.on(x, y);
@@ -187,13 +175,14 @@ public class LEDDisplayTest {
         this.led.setStrict(false);
         this.led.on(-42, -42);
 
-        this.thrown.expect(IllegalArgumentException.class);
-        this.led.setStrict(true);
-        this.led.on(-42, -42);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.led.setStrict(true);
+            this.led.on(-42, -42);
+        });
     }
 
     @Test
-    public void testOnAtEvent() {
+    void testOnAtEvent() {
         this.led.addLEDDisplayChangeListener(e -> {
             this.eventCount++;
             assertSingleDotEvent(e, 10, 5);
@@ -204,14 +193,14 @@ public class LEDDisplayTest {
     }
 
     @Test
-    public void testOff() {
+    void testOff() {
         this.led.on();
         this.led.off();
         forEach(this.led, (x, y) -> assertFalse(this.led.get(x, y)));
     }
 
     @Test
-    public void testOffEvent() {
+    void testOffEvent() {
         this.led.addLEDDisplayChangeListener(e -> {
             this.eventCount++;
             assertAllDotsEvent(e);
@@ -222,7 +211,7 @@ public class LEDDisplayTest {
     }
 
     @Test
-    public void testOffAt() {
+    void testOffAt() {
         this.led.setDelay(0);
         this.led.on();
         forEach(this.led, (x, y) -> {
@@ -232,17 +221,18 @@ public class LEDDisplayTest {
     }
 
     @Test
-    public void testOffAtStrict() {
+    void testOffAtStrict() {
         this.led.setStrict(false);
         this.led.off(-42, -42);
 
-        this.thrown.expect(IllegalArgumentException.class);
-        this.led.setStrict(true);
-        this.led.off(-42, -42);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.led.setStrict(true);
+            this.led.off(-42, -42);
+        });
     }
 
     @Test
-    public void testOffAtEvent() {
+    void testOffAtEvent() {
         this.led.addLEDDisplayChangeListener(e -> {
             this.eventCount++;
             assertSingleDotEvent(e, 10, 5);
@@ -253,7 +243,7 @@ public class LEDDisplayTest {
     }
 
     @Test
-    public void testSetAtOn() {
+    void testSetAtOn() {
         this.led.setDelay(0);
         forEach(this.led, (x, y) -> {
             this.led.set(x, y, true);
@@ -262,7 +252,7 @@ public class LEDDisplayTest {
     }
 
     @Test
-    public void testSetAtOff() {
+    void testSetAtOff() {
         this.led.setDelay(0);
         this.led.on();
         forEach(this.led, (x, y) -> {
@@ -272,17 +262,18 @@ public class LEDDisplayTest {
     }
 
     @Test
-    public void testSetAtStrict() {
+    void testSetAtStrict() {
         this.led.setStrict(false);
         this.led.set(-42, -42, true);
 
-        this.thrown.expect(IllegalArgumentException.class);
-        this.led.setStrict(true);
-        this.led.set(-42, -42, true);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.led.setStrict(true);
+            this.led.set(-42, -42, true);
+        });
     }
 
     @Test
-    public void testSetAtEvent() {
+    void testSetAtEvent() {
         this.led.addLEDDisplayChangeListener(e -> {
             this.eventCount++;
             assertSingleDotEvent(e, 10, 5);
@@ -293,7 +284,7 @@ public class LEDDisplayTest {
     }
 
     @Test
-    public void testInvert() {
+    void testInvert() {
         this.led.invert();
         forEach(this.led, (x, y) -> assertTrue(this.led.get(x, y)));
         this.led.invert();
@@ -301,7 +292,7 @@ public class LEDDisplayTest {
     }
 
     @Test
-    public void testInvertEvent() {
+    void testInvertEvent() {
         this.led.addLEDDisplayChangeListener(e -> {
             this.eventCount++;
             assertAllDotsEvent(e);
@@ -312,7 +303,7 @@ public class LEDDisplayTest {
     }
 
     @Test
-    public void testInvertAt() {
+    void testInvertAt() {
         this.led.setDelay(0);
         forEach(this.led, (x, y) -> {
             this.led.invert(x, y);
@@ -323,17 +314,18 @@ public class LEDDisplayTest {
     }
 
     @Test
-    public void testInvertAtStrict() {
+    void testInvertAtStrict() {
         this.led.setStrict(false);
         this.led.invert(-42, -42);
 
-        this.thrown.expect(IllegalArgumentException.class);
-        this.led.setStrict(true);
-        this.led.invert(-42, -42);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.led.setStrict(true);
+            this.led.invert(-42, -42);
+        });
     }
 
     @Test
-    public void testInvertAtEvent() {
+    void testInvertAtEvent() {
         this.led.addLEDDisplayChangeListener(e -> {
             this.eventCount++;
             assertSingleDotEvent(e, 10, 5);
@@ -345,7 +337,7 @@ public class LEDDisplayTest {
 
     @Test
     @SuppressWarnings("deprecation")
-    public void testWriteOn() {
+    void testWriteOn() {
         this.led.setDelay(0);
         this.led.writeOn(10, 2, "Hello");
         assertTrue(this.led.get(10, 2));
@@ -353,22 +345,23 @@ public class LEDDisplayTest {
 
     @Test
     @SuppressWarnings("deprecation")
-    public void testWriteOnNull() {
+    void testWriteOnNull() {
         this.led.setDelay(0);
-        this.thrown.expect(IllegalArgumentException.class);
-        this.led.writeOn(10, 2, null);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.led.writeOn(10, 2, null);
+        });
     }
 
     @Test
     @SuppressWarnings("deprecation")
-    public void testWriteOnEmpty() {
+    void testWriteOnEmpty() {
         this.led.setDelay(0);
         this.led.writeOn(10, 2, "");
     }
 
     @Test
     @SuppressWarnings("deprecation")
-    public void testWriteOnStrict() {
+    void testWriteOnStrict() {
         this.led.setDelay(0);
 
         this.led.setStrict(false);
@@ -376,13 +369,14 @@ public class LEDDisplayTest {
         assertTrue(this.led.get(10, 5));
 
         this.led.setStrict(true);
-        this.thrown.expect(IllegalArgumentException.class);
-        this.led.writeOn(10, 5, "Hello");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.led.writeOn(10, 5, "Hello");
+        });
     }
 
     @Test
     @SuppressWarnings("deprecation")
-    public void testWriteOnEvent() {
+    void testWriteOnEvent() {
         this.led.addLEDDisplayChangeListener(e -> this.eventCount++);
 
         this.led.writeOn(10, 2, "H");
@@ -391,7 +385,7 @@ public class LEDDisplayTest {
 
     @Test
     @SuppressWarnings("deprecation")
-    public void testWriteOff() {
+    void testWriteOff() {
         this.led.setDelay(0);
         this.led.on();
         this.led.writeOff(10, 2, "Hello");
@@ -400,22 +394,23 @@ public class LEDDisplayTest {
 
     @Test
     @SuppressWarnings("deprecation")
-    public void testWriteOffNull() {
+    void testWriteOffNull() {
         this.led.setDelay(0);
-        this.thrown.expect(IllegalArgumentException.class);
-        this.led.writeOff(10, 2, null);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.led.writeOff(10, 2, null);
+        });
     }
 
     @Test
     @SuppressWarnings("deprecation")
-    public void testWriteOffEmpty() {
+    void testWriteOffEmpty() {
         this.led.setDelay(0);
         this.led.writeOff(10, 2, "");
     }
 
     @Test
     @SuppressWarnings("deprecation")
-    public void testWriteOffStrict() {
+    void testWriteOffStrict() {
         this.led.setDelay(0);
         this.led.on();
 
@@ -424,13 +419,14 @@ public class LEDDisplayTest {
         assertFalse(this.led.get(10, 5));
 
         this.led.setStrict(true);
-        this.thrown.expect(IllegalArgumentException.class);
-        this.led.writeOff(10, 5, "Hello");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.led.writeOff(10, 5, "Hello");
+        });
     }
 
     @Test
     @SuppressWarnings("deprecation")
-    public void testWriteOffEvent() {
+    void testWriteOffEvent() {
         this.led.addLEDDisplayChangeListener(e -> this.eventCount++);
 
         this.led.writeOff(10, 2, "H");
@@ -438,7 +434,7 @@ public class LEDDisplayTest {
     }
 
     @Test
-    public void testWrite() {
+    void testWrite() {
         this.led.setDelay(0);
         this.led.write(10, 2, true, "Hello");
         assertTrue(this.led.get(10, 2));
@@ -447,20 +443,21 @@ public class LEDDisplayTest {
     }
 
     @Test
-    public void testWriteNull() {
+    void testWriteNull() {
         this.led.setDelay(0);
-        this.thrown.expect(IllegalArgumentException.class);
-        this.led.write(10, 2, true, null);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.led.write(10, 2, true, null);
+        });
     }
 
     @Test
-    public void testWriteEmpty() {
+    void testWriteEmpty() {
         this.led.setDelay(0);
         this.led.write(10, 2, true, "");
     }
 
     @Test
-    public void testWriteStrict() {
+    void testWriteStrict() {
         this.led.setDelay(0);
 
         this.led.setStrict(false);
@@ -468,12 +465,13 @@ public class LEDDisplayTest {
         assertTrue(this.led.get(10, 5));
 
         this.led.setStrict(true);
-        this.thrown.expect(IllegalArgumentException.class);
-        this.led.write(10, 5, true, "Hello");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.led.write(10, 5, true, "Hello");
+        });
     }
 
     @Test
-    public void testWriteEvent() {
+    void testWriteEvent() {
         this.led.addLEDDisplayChangeListener(e -> this.eventCount++);
 
         this.led.write(10, 2, true, "H");
@@ -481,12 +479,12 @@ public class LEDDisplayTest {
     }
 
     @Test
-    public void testMoveRightOn() {
+    void testMoveRightOn() {
         testMoveRight(true);
     }
 
     @Test
-    public void testMoveRightOff() {
+    void testMoveRightOff() {
         this.led.on();
         testMoveRight(false);
     }
@@ -497,12 +495,12 @@ public class LEDDisplayTest {
     }
 
     @Test
-    public void testMoveLeftOn() {
+    void testMoveLeftOn() {
         testMoveLeft(true);
     }
 
     @Test
-    public void testMoveLeftOff() {
+    void testMoveLeftOff() {
         this.led.on();
         testMoveLeft(false);
     }
@@ -513,12 +511,12 @@ public class LEDDisplayTest {
     }
 
     @Test
-    public void testDownRightOn() {
+    void testDownRightOn() {
         testMoveDown(true);
     }
 
     @Test
-    public void testMoveDownOff() {
+    void testMoveDownOff() {
         this.led.on();
         testMoveDown(false);
     }
@@ -529,12 +527,12 @@ public class LEDDisplayTest {
     }
 
     @Test
-    public void testMoveUpOn() {
+    void testMoveUpOn() {
         testMoveUp(true);
     }
 
     @Test
-    public void testMoveUpOff() {
+    void testMoveUpOff() {
         this.led.on();
         testMoveUp(false);
     }
@@ -545,7 +543,7 @@ public class LEDDisplayTest {
     }
 
     @Test
-    public void testMoveExtrem() {
+    void testMoveExtrem() {
         this.led.move(1000, 1000, true);
         forEach(this.led, (x, y) -> assertTrue(this.led.get(x, y)));
     }
