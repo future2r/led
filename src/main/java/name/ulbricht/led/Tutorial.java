@@ -16,7 +16,7 @@ public enum Tutorial {
 
     PING_PONG(DEMO), GAME_OF_LIFE(DEMO);
 
-    private TutorialCategory category;
+    private final TutorialCategory category;
 
     Tutorial(TutorialCategory category) {
         this.category = category;

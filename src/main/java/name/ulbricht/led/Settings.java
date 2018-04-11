@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.prefs.Preferences;
 
-public final class Settings {
+final class Settings {
 
     private static final String ROOT = "name/ulbricht/led/2.1";
 

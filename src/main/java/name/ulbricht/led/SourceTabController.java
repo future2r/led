@@ -53,8 +53,7 @@ public final class SourceTabController implements Initializable {
                     String.format(Resources.getString("alert.confirm.saveChanges.textPattern"),
                             this.sourceFile.getFileName()));
             if (result == ButtonType.YES) return save();
-            if (result == ButtonType.NO) return true;
-            return false;
+            return result == ButtonType.NO;
         }
         return true;
     }

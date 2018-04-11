@@ -26,14 +26,14 @@ public class Font5x8CharacterTest {
 				+ "{|}~€£§°" // special characters
 				+ "ÄÖÜäöü"; // German umlauts
 
-		return s.chars().mapToObj(i -> new Object[] { Character.valueOf((char) i) })
+		return s.chars().mapToObj(i -> new Object[] {(char) i})
 				.collect(Collectors.toCollection(ArrayList::new));
 	}
 
-	private char c;
+	private final char c;
 
 	public Font5x8CharacterTest(Character c) {
-		this.c = c.charValue();
+		this.c = c;
 	}
 
 	@SuppressWarnings("boxing")

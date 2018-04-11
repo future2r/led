@@ -56,18 +56,13 @@ public final class ProgramTask extends Task<Void> implements Environment {
     protected Void call() throws Exception {
         try {
             this.engine.eval(this.source);
-            System.out.println(this.isCancelled());
-
-        } catch (ScriptException ex) {
-            // there was an error interpreting the script
-            throw ex;
         } catch (RuntimeException ex) {
             // there was an error during script execution
             Throwable cause = ex.getCause();
-            if (cause instanceof InterruptedException) {
-                // the script was interrupted
-            } else
+            if (!(cause instanceof InterruptedException)) {
+                // the script was not interrupted
                 throw ex;
+            }
         }
         return null;
     }

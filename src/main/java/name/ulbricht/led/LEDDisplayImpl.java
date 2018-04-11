@@ -9,9 +9,9 @@ public final class LEDDisplayImpl implements LEDDisplay {
 
     private static final class DotMatrixImpl implements DotMatrix {
 
-        private int width;
-        private int height;
-        private Color[] dots;
+        private final int width;
+        private final int height;
+        private final Color[] dots;
 
         private DotMatrixImpl(int width, int height, Color[] dots) {
             this.width = width;
@@ -47,11 +47,11 @@ public final class LEDDisplayImpl implements LEDDisplay {
     private int delay = DEFAULT_DELAY;
     private boolean strict = DEFAULT_STRICT;
 
-    private Log log;
+    private final Log log;
 
     private Color[] dots;
 
-    private EventListenerList eventListeners = new EventListenerList();
+    private final EventListenerList eventListeners = new EventListenerList();
 
     public LEDDisplayImpl(Log log) {
         this.log = log;
@@ -91,8 +91,7 @@ public final class LEDDisplayImpl implements LEDDisplay {
 
     @Override
     public void setColor(Color color) {
-        if (color == null)
-            throw new IllegalArgumentException(String.format(Resources.getString("error.invalidColor.pattern"), color));
+        if (color == null)  throw new IllegalArgumentException(Resources.getString("error.colorRequired"));
         this.color = color;
     }
 
@@ -216,7 +215,7 @@ public final class LEDDisplayImpl implements LEDDisplay {
     @Override
     public void write(int x, int y, boolean status, String text) {
         if (text == null)
-            throw new IllegalArgumentException(String.format(Resources.getString("error.invalidText.pattern"), text));
+            throw new IllegalArgumentException(Resources.getString("error.textRequired"));
 
         MatrixFont font = MatrixFont.FONT_5x8;
         int pos = x;

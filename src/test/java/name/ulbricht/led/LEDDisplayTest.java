@@ -17,10 +17,10 @@ import org.junit.rules.ExpectedException;
 @SuppressWarnings("boxing")
 public class LEDDisplayTest {
 
-	private LEDDisplay led = new LEDDisplayImpl(new LogImpl());
+	private final LEDDisplay led = new LEDDisplayImpl(new LogImpl());
 
 	@Rule
-	public ExpectedException thrown = ExpectedException.none();
+	public final ExpectedException thrown = ExpectedException.none();
 
 	private int eventCount;
 
@@ -387,9 +387,7 @@ public class LEDDisplayTest {
 	@Test
 	@SuppressWarnings("deprecation")
 	public void testWriteOnEvent() {
-		this.led.addLEDDisplayChangeListener(e -> {
-			this.eventCount++;
-		});
+		this.led.addLEDDisplayChangeListener(e -> this.eventCount++);
 
 		this.led.writeOn(10, 2, "H");
 		assertEquals(17, this.eventCount);
@@ -437,9 +435,7 @@ public class LEDDisplayTest {
 	@Test
 	@SuppressWarnings("deprecation")
 	public void testWriteOffEvent() {
-		this.led.addLEDDisplayChangeListener(e -> {
-			this.eventCount++;
-		});
+		this.led.addLEDDisplayChangeListener(e -> this.eventCount++);
 
 		this.led.writeOff(10, 2, "H");
 		assertEquals(17, this.eventCount);
@@ -482,9 +478,7 @@ public class LEDDisplayTest {
 
 	@Test
 	public void testWriteEvent() {
-		this.led.addLEDDisplayChangeListener(e -> {
-			this.eventCount++;
-		});
+		this.led.addLEDDisplayChangeListener(e -> this.eventCount++);
 
 		this.led.write(10, 2, true, "H");
 		assertEquals(17, this.eventCount);
@@ -503,7 +497,7 @@ public class LEDDisplayTest {
 
 	private void testMoveRight(boolean status) {
 		this.led.move(2, 0, status);
-		forEach(this.led, (x, y) -> assertEquals(x <= 1 ? status : !status, this.led.get(x, y)));
+		forEach(this.led, (x, y) -> assertEquals(x <= 1 == status, this.led.get(x, y)));
 	}
 
 	@Test
@@ -519,7 +513,7 @@ public class LEDDisplayTest {
 
 	private void testMoveLeft(boolean status) {
 		this.led.move(-2, 0, status);
-		forEach(this.led, (x, y) -> assertEquals(x < (this.led.getWidth() - 2) ? !status : status, this.led.get(x, y)));
+		forEach(this.led, (x, y) -> assertEquals(x < (this.led.getWidth() - 2) != status, this.led.get(x, y)));
 	}
 	
 	@Test
@@ -535,7 +529,7 @@ public class LEDDisplayTest {
 
 	private void testMoveDown(boolean status) {
 		this.led.move(0, 2, status);
-		forEach(this.led, (x, y) -> assertEquals(y <= 1 ? status : !status, this.led.get(x, y)));
+		forEach(this.led, (x, y) -> assertEquals(y <= 1 == status, this.led.get(x, y)));
 	}
 
 	@Test
@@ -551,7 +545,7 @@ public class LEDDisplayTest {
 
 	private void testMoveUp(boolean status) {
 		this.led.move(0, -2, status);
-		forEach(this.led, (x, y) -> assertEquals(y < (this.led.getHeight() - 2) ? !status : status, this.led.get(x, y)));
+		forEach(this.led, (x, y) -> assertEquals(y < (this.led.getHeight() - 2) != status, this.led.get(x, y)));
 	}
 	
 	@Test

@@ -6,19 +6,19 @@ import javafx.stage.Window;
 import java.io.File;
 import java.nio.file.Path;
 
-public final class FileChoosers {
+final class FileChoosers {
 
     private static FileChooser openFileChooser;
     private static FileChooser saveFileChooser;
 
-    public static Path showOpenFileChooser(Window window) {
+    static Path showOpenFileChooser(Window window) {
         FileChooser fileChooser = getOpenFileChooser();
         fileChooser.setInitialDirectory(Settings.getMRUOpenDir().toFile());
         File selectedFile = fileChooser.showOpenDialog(window);
         return selectedFile != null ? selectedFile.toPath() : null;
     }
 
-    public static Path showSaveFileChooser(Window window, Path file) {
+    static Path showSaveFileChooser(Window window, Path file) {
         FileChooser fileChooser = getSaveFileChooser();
         fileChooser.setInitialDirectory(file.getParent().toFile());
         fileChooser.setInitialFileName(file.getFileName().toString());

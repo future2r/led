@@ -37,7 +37,7 @@ public final class DisplayController implements Initializable {
     private Log log;
 
     private static final int LED_WIDTH = 20;
-    private static final int LED_HEIGHT = LED_WIDTH;
+    private static final int LED_HEIGHT = 20;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -178,13 +178,11 @@ public final class DisplayController implements Initializable {
     }
 
     private void setStatusLabel(String text) {
-        Platform.runLater(() -> {
-            this.statusLabel.setText(text);
-        });
+        Platform.runLater(() -> this.statusLabel.setText(text));
     }
 
     private void updateCoordsLabel(int x, int y) {
         this.coordsLabel.setText(
-                String.format(Resources.getString("display.coordsPattern"), Integer.valueOf(x), Integer.valueOf(y)));
+                String.format(Resources.getString("display.coordsPattern"), x, y));
     }
 }

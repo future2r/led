@@ -12,7 +12,7 @@ public enum Color {
 
     BLUE("on_blue.png");
 
-    private Image image;
+    private final Image image;
 
     Color(String imageName) {
         this.image = Resources.getImage(imageName);

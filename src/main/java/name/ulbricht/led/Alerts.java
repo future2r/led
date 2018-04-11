@@ -10,11 +10,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-public final class Alerts {
+final class Alerts {
 
-    private static String GLOBAL_CSS = Alerts.class.getResource("global.css").toExternalForm();
+    private static final String GLOBAL_CSS = Alerts.class.getResource("global.css").toExternalForm();
 
-    public static void info(Window owner, String header, String message) {
+    static void info(Window owner, String header, String message) {
         final Alert alert = new Alert(AlertType.INFORMATION);
         alert.getDialogPane().getStylesheets().add(GLOBAL_CSS);
         alert.initOwner(owner);
@@ -25,7 +25,7 @@ public final class Alerts {
         alert.showAndWait();
     }
 
-    public static void error(Window owner, String header, String message) {
+    static void error(Window owner, String header, String message) {
         final Alert alert = new Alert(AlertType.INFORMATION);
         alert.getDialogPane().getStylesheets().add(GLOBAL_CSS);
         alert.initOwner(owner);
@@ -36,7 +36,7 @@ public final class Alerts {
         alert.showAndWait();
     }
 
-    public static ButtonType confirm(Window owner, String header, String message) {
+    static ButtonType confirm(Window owner, String header, String message) {
         final Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.getDialogPane().getStylesheets().add(GLOBAL_CSS);
         alert.initOwner(owner);
@@ -49,7 +49,7 @@ public final class Alerts {
         return alert.showAndWait().orElse(ButtonType.CANCEL);
     }
 
-    public static void exception(final Window owner, final Throwable exception) {
+    static void exception(final Window owner, final Throwable exception) {
         String exceptionText;
         try (final StringWriter sw = new StringWriter(); final PrintWriter pw = new PrintWriter(sw)) {
             exception.printStackTrace(pw);

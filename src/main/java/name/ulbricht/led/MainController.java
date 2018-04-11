@@ -1,8 +1,6 @@
 package name.ulbricht.led;
 
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker.State;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -237,8 +235,9 @@ public final class MainController implements Initializable {
 
     @FXML
     protected void about() {
-        String version = getClass().getPackage().getImplementationVersion();
-        String text = String.format(Resources.getString("alert.info.about.textPattern"), version);
+        String appVersion = getClass().getPackage().getImplementationVersion();
+        String javaVersion = System.getProperty("java.version");
+        String text = String.format(Resources.getString("alert.info.about.textPattern"), appVersion, javaVersion);
         Alerts.info(getStage(), Resources.getString("alert.info.about.header"), text);
     }
 
@@ -377,9 +376,9 @@ public final class MainController implements Initializable {
 
     private void openTutorial(Tutorial tutorial) {
         Tab tab = createFileTab();
-        SourceTabController controller = getSourceTabController(tab).get();
-        controller.getSourceFile().setSource(tutorial.getSource());
-
-        addFileTab(tab);
+        getSourceTabController(tab).ifPresent(controller -> {
+            controller.getSourceFile().setSource(tutorial.getSource());
+            addFileTab(tab);
+        });
     }
 }

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/9.0.0" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="name.ulbricht.led.DisplayController">
 	<stylesheets>
 		<URL value="@global.css" />
@@ -27,22 +27,18 @@
 			</BorderPane.margin>
 			<center>
 				<HBox BorderPane.alignment="CENTER_LEFT">
-					<children>
-						<Label fx:id="coordsLabel" />
-						<Separator orientation="VERTICAL" prefWidth="20.0" />
-						<Label fx:id="programLabel" />
-						<Separator orientation="VERTICAL" prefWidth="20.0" />
-						<Label fx:id="statusLabel" />
-					</children>
+					<Label fx:id="coordsLabel"/>
+					<Separator orientation="VERTICAL" prefWidth="20.0"/>
+					<Label fx:id="programLabel"/>
+					<Separator orientation="VERTICAL" prefWidth="20.0"/>
+					<Label fx:id="statusLabel"/>
 				</HBox>
 			</center>
 			<right>
 				<Button focusTraversable="false" onAction="#stop">
 					<graphic>
 						<ImageView>
-							<image>
-								<Image url="@icons/stop/ffffff-stop-16.png" />
-							</image>
+							<Image url="@icons/stop/ffffff-stop-16.png"/>
 						</ImageView>
 					</graphic>
 					<tooltip>
