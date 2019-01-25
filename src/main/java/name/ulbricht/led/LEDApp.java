@@ -6,8 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.awt.*;
-
 public class LEDApp extends Application {
 
     public static void main(String[] args) {
@@ -33,14 +31,5 @@ public class LEDApp extends Application {
         });
 
         primaryStage.show();
-
-        hideSplashScreen();
-    }
-
-    private static void hideSplashScreen() {
-        var splashScreen = SplashScreen.getSplashScreen();
-        if (splashScreen != null && splashScreen.isVisible()) {
-            splashScreen.close();
-        }
     }
 }

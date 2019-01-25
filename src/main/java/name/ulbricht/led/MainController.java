@@ -1,22 +1,6 @@
 package name.ulbricht.led;
 
-import javafx.application.Platform;
-import javafx.concurrent.Worker.State;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.*;
-import javafx.scene.control.TextArea;
-import javafx.scene.web.WebView;
-import javafx.stage.Stage;
-import name.ulbricht.led.api.Log;
-import netscape.javascript.JSObject;
-
-import java.awt.*;
+import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -26,6 +10,23 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+
+import javafx.application.Platform;
+import javafx.concurrent.Worker.State;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.web.WebView;
+import javafx.stage.Stage;
+import jdk.nashorn.api.scripting.JSObject;
+import name.ulbricht.led.api.Log;
 
 public final class MainController implements Initializable {
 
