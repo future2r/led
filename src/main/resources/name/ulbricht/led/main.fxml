@@ -150,8 +150,6 @@
                         </graphic>
                     </MenuItem>
                     <SeparatorMenuItem/>
-                    <MenuItem onAction="#sendFeedback" text="%main.feedback.menu-item.text"/>
-                    <SeparatorMenuItem/>
                     <MenuItem onAction="#about" text="%main.about.menu-item.text">
                         <graphic>
                             <ImageView>

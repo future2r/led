@@ -20,7 +20,8 @@ final class Font5x8CharacterTest {
         assertEquals(MatrixFont.FONT_5x8.width * MatrixFont.FONT_5x8.height, data.length);
     }
 
-    private static Stream<Character> characterProvider() {
+    @SuppressWarnings("unused")
+	private static Stream<Character> characterProvider() {
         var s = "!\"#$%&'()*+,-./" // special characters
                 + "0123456789" // digits
                 + ":;<=>?" // special characters
