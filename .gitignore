@@ -1,6 +1,5 @@
 .idea/
 target/
-release/
 *.iml
 .settings/
 .project
