@@ -1,4 +1,4 @@
-package name.ulbricht.led;
+package name.ulbricht.led.impl;
 
 import javafx.concurrent.Task;
 import name.ulbricht.led.api.Color;

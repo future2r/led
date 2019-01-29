@@ -12,6 +12,9 @@ import javafx.stage.Stage;
 import name.ulbricht.led.api.LEDDisplay;
 import name.ulbricht.led.api.LEDDisplayChangeEvent;
 import name.ulbricht.led.api.Log;
+import name.ulbricht.led.impl.LEDDisplayImpl;
+import name.ulbricht.led.impl.LogImpl;
+import name.ulbricht.led.impl.ProgramTask;
 
 import java.net.URL;
 import java.util.ResourceBundle;

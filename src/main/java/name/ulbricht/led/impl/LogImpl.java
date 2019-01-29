@@ -1,4 +1,4 @@
-package name.ulbricht.led;
+package name.ulbricht.led.impl;
 
 import java.util.ArrayList;
 import java.util.List;

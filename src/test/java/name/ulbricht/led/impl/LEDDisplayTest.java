@@ -1,8 +1,11 @@
-package name.ulbricht.led;
+package name.ulbricht.led.impl;
 
 import name.ulbricht.led.api.Color;
 import name.ulbricht.led.api.LEDDisplay;
 import name.ulbricht.led.api.LEDDisplayChangeEvent;
+import name.ulbricht.led.impl.LEDDisplayImpl;
+import name.ulbricht.led.impl.LogImpl;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.function.BiConsumer;

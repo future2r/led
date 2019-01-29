@@ -1,7 +1,9 @@
-package name.ulbricht.led;
+package name.ulbricht.led.impl;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+
+import name.ulbricht.led.impl.MatrixFont;
 
 import java.util.stream.Stream;
 

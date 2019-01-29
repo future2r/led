@@ -1,6 +1,8 @@
-package name.ulbricht.led;
+package name.ulbricht.led.impl;
 
 import org.junit.jupiter.api.Test;
+
+import name.ulbricht.led.impl.MatrixFont;
 
 import static org.junit.jupiter.api.Assertions.*;
 

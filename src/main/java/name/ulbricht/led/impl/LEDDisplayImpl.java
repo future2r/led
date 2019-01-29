@@ -1,9 +1,10 @@
-package name.ulbricht.led;
+package name.ulbricht.led.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import name.ulbricht.led.Resources;
 import name.ulbricht.led.api.Color;
 import name.ulbricht.led.api.LEDDisplay;
 import name.ulbricht.led.api.LEDDisplayChangeEvent;
