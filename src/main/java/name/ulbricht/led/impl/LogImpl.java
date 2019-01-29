@@ -38,7 +38,7 @@ public final class LogImpl implements Log {
 
 	private void fireLogAdded(Level level, String text) {
 		if (!this.eventListeners.isEmpty()) {
-		var listeners = this.eventListeners.toArray(LogListener[]::new);
+		var listeners = this.eventListeners.stream().toArray(LogListener[]::new);
 			var event = new LogEvent(this, level, text);
 			for (var listener : listeners) {
 				listener.logAdded(event);

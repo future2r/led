@@ -366,7 +366,7 @@ public final class LEDDisplayImpl implements LEDDisplay {
 
 	private void fireDisplayChanged(LEDDisplayChangeEvent.Type type, int x, int y) {
 		if (!this.eventListeners.isEmpty()) {
-			var listeners = this.eventListeners.toArray(LEDDisplayChangeListener[]::new);
+			var listeners = this.eventListeners.stream().toArray(LEDDisplayChangeListener[]::new);
 			var event = new LEDDisplayChangeEvent(this.getDots(), type, x, y);
 			for (var listener : listeners) {
 				listener.displayChanged(event);
