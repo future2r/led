@@ -2,7 +2,6 @@ package name.ulbricht.led;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.events.Event;
@@ -47,8 +46,14 @@ final class HyperlinkHandler implements ChangeListener<Worker.State>, EventListe
 	@Override
 	public void handleEvent(final Event evt) {
 		if (evt.getType().equals(EVENT_TYPE_CLICK)) {
-			Optional.ofNullable(((Element) evt.getTarget()).getAttribute(ATTRIBUTE_NAME_HREF)).ifPresent(
-					href -> Optional.ofNullable(HyperlinkHandler.this.handlers.get(href)).ifPresent(Runnable::run));
+			var href = ((Element) evt.getTarget()).getAttribute(ATTRIBUTE_NAME_HREF);
+			if (href != null) {
+				var handler = this.handlers.get(href);
+				if (handler != null) {
+					handler.run();
+					evt.preventDefault();
+				}
+			}
 		}
 	}
 }
