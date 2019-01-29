@@ -9,7 +9,6 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import javafx.application.Platform;
-import javafx.concurrent.Worker.State;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,29 +21,9 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import jdk.nashorn.api.scripting.JSObject;
 import name.ulbricht.led.api.Log;
 
 public final class MainController implements Initializable {
-
-	public class Welcome {
-
-		public void createNewProgram() {
-			MainController.this.newFile();
-		}
-
-		public void openProgram() {
-			MainController.this.openFile();
-		}
-
-		public void openTutorial() {
-			MainController.this.openTutorial();
-		}
-
-		public void showAPIDocumentation() {
-			MainController.this.showAPIDocumentation();
-		}
-	}
 
 	@FXML
 	private Parent root;
@@ -65,7 +44,7 @@ public final class MainController implements Initializable {
 	private APIController apiController;
 
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+	public void initialize(final URL location, final ResourceBundle resources) {
 		var insertPos = 1;
 		for (var category : TutorialCategory.values()) {
 			var menu = new Menu(category.getDisplayName());
@@ -82,12 +61,11 @@ public final class MainController implements Initializable {
 			this.helpMenu.getItems().add(insertPos++, menu);
 		}
 
-		this.welcomeWebView.getEngine().getLoadWorker().stateProperty().addListener((ov, oldState, newState) -> {
-			if (newState == State.SUCCEEDED) {
-				JSObject win = (JSObject) MainController.this.welcomeWebView.getEngine().executeScript("window");
-				win.setMember("welcome", new Welcome());
-			}
-		});
+		var hyperlinkHandler = new HyperlinkHandler(this.welcomeWebView);
+		hyperlinkHandler.registerHandler("createNewProgram", this::newFile);
+		hyperlinkHandler.registerHandler("openProgram", this::openFile);
+		hyperlinkHandler.registerHandler("openTutorial", this::openTutorial);
+		hyperlinkHandler.registerHandler("showAPIDocumentation", this::showAPIDocumentation);
 
 		Platform.runLater(() -> this.welcomeWebView.getEngine()
 				.load(getClass().getResource(Resources.getString("main.tab.welcome.content")).toString()));
@@ -252,7 +230,7 @@ public final class MainController implements Initializable {
 		return tab;
 	}
 
-	private void addFileTab(Tab tab) {
+	private void addFileTab(final Tab tab) {
 		this.sourceTabPane.getTabs().add(tab);
 		this.sourceTabPane.getSelectionModel().select(tab);
 	}
@@ -268,15 +246,15 @@ public final class MainController implements Initializable {
 		return Optional.empty();
 	}
 
-	private Optional<SourceTabController> getSourceTabController(Tab tab) {
+	private Optional<SourceTabController> getSourceTabController(final Tab tab) {
 		return Optional.ofNullable((SourceTabController) tab.getProperties().get(SourceTabController.ID));
 	}
 
-	private static void setSourceTabController(Tab tab, SourceTabController controller) {
+	private static void setSourceTabController(final Tab tab, final SourceTabController controller) {
 		tab.getProperties().put(SourceTabController.ID, controller);
 	}
 
-	private void performOpen(Path file) {
+	private void performOpen(final Path file) {
 		var tab = createFileTab();
 		var controller = (SourceTabController) tab.getProperties().get(SourceTabController.ID);
 
@@ -290,7 +268,7 @@ public final class MainController implements Initializable {
 		addFileTab(tab);
 	}
 
-	private void performExecute(SourceTabController controller) {
+	private void performExecute(final SourceTabController controller) {
 		showDisplay();
 		var file = controller.getSourceFile();
 		try {
@@ -301,11 +279,11 @@ public final class MainController implements Initializable {
 		}
 	}
 
-	private void performStop(SourceTabController controller) {
+	private void performStop(final SourceTabController controller) {
 		getDisplayController().stop();
 	}
 
-	void addLogEntry(Log.Level level, String text) {
+	void addLogEntry(final Log.Level level, final String text) {
 		Platform.runLater(() -> this.logTextArea.appendText(String.format("%s:\t %s\n", level.getDisplayName(), text)));
 	}
 
@@ -356,7 +334,7 @@ public final class MainController implements Initializable {
 		return this.apiController;
 	}
 
-	private void openTutorial(Tutorial tutorial) {
+	private void openTutorial(final Tutorial tutorial) {
 		var tab = createFileTab();
 		getSourceTabController(tab).ifPresent(controller -> {
 			controller.getSourceFile().setSource(tutorial.getSource());
