@@ -1,6 +1,7 @@
 package name.ulbricht.led;
 
 import java.io.IOException;
+import java.lang.module.ModuleDescriptor;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -195,7 +196,8 @@ public final class MainController implements Initializable {
 
 	@FXML
 	protected void about() {
-		var appVersion = getClass().getPackage().getImplementationVersion();
+		var appVersion = ModuleLayer.boot().findModule("name.ulbricht.led").map(Module::getDescriptor)
+				.flatMap(ModuleDescriptor::version).map(ModuleDescriptor.Version::toString).orElse("?");
 		var javaVersion = System.getProperty("java.version");
 		var text = String.format(Resources.getString("alert.info.about.textPattern"), appVersion, javaVersion);
 		Alerts.info(getStage(), Resources.getString("alert.info.about.header"), text);
