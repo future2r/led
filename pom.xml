@@ -180,7 +180,7 @@
 									<arg value="${project.build.directory}/runimage" />
 
 									<!-- strip debug information -->
-									<!-- <arg value="strip-debug" /> -->
+									<arg value="--strip-debug" />
 
 									<!-- name of the launcher and module to launch -->
 									<arg value="--launcher" />
