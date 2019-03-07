@@ -4,6 +4,7 @@ module name.ulbricht.led {
 	requires java.prefs;
 	requires java.xml;
 	requires java.scripting;
+	requires jdk.scripting.nashorn;
 
 	// JavaFX
 	requires javafx.base;
